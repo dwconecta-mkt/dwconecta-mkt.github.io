@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DW Conecta — Estratégia de Performance e Inteligência de Dados</title>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WXS3LW8W');</script>
+<!-- End Google Tag Manager -->
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #00124a;
+  --blue: #076a93;
+  --mid: #2e6b91;
+  --steel: #a7c0ce;
+  --steelDim: rgba(167,192,206,0.5);
+  --white: #f4f7fa;
+  --dark: #080f1e;
+  --darker: #050c18;
+  --card: rgba(255,255,255,0.03);
+  --border: rgba(167,192,206,0.15);
+  --borderHover: rgba(7,106,147,0.45);
+  --glow: rgba(7,106,147,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─── HEADER ─── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 16px 6vw;
+  display: flex; align-items: center; justify-content: space-between;
+  backdrop-filter: blur(24px) saturate(1.4);
+  background: rgba(8,15,30,0.82);
+  border-bottom: 1px solid var(--border);
+}
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.01em; }
+.logo span { color: var(--steel); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 0.82rem; color: rgba(244,247,250,0.45); text-decoration: none; letter-spacing: 0.03em; transition: color .2s; }
+.nav-links a:hover { color: var(--white); }
+.btn-primary {
+  background: var(--blue); color: var(--white);
+  font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.85rem;
+  padding: 10px 22px; border-radius: 4px; border: none; cursor: pointer;
+  text-decoration: none; transition: all .2s;
+  box-shadow: 0 0 20px rgba(7,106,147,0.3);
+}
+.btn-primary:hover { background: var(--mid); transform: translateY(-1px); box-shadow: 0 4px 28px rgba(7,106,147,0.45); }
+.btn-primary.lg { font-size: 0.95rem; padding: 15px 32px; box-shadow: 0 4px 28px rgba(7,106,147,0.4); }
+.btn-primary.lg:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(7,106,147,0.5); }
+.btn-ghost { color: var(--steel); font-size: 0.88rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; transition: color .2s; }
+.btn-ghost:hover { color: var(--white); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  padding: 110px 6vw 80px;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5vw;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+/* animated grid bg */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(7,106,147,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(7,106,147,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridShift 20s linear infinite;
+  pointer-events: none;
+}
+@keyframes gridShift { from { background-position: 0 0; } to { background-position: 60px 60px; } }
+
+.hero::after {
+  content: '';
+  position: absolute; top: -30%; right: -5%;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(7,106,147,0.1) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--steel); margin-bottom: 22px;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--steel); }
+
+.hero h1 {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(2.3rem, 4.8vw, 4rem); line-height: 1.04; letter-spacing: -0.03em; margin-bottom: 24px;
+}
+.hero h1 em { font-style: normal; color: var(--steel); }
+
+.hero-sub {
+  font-size: 1.05rem; font-weight: 300; color: rgba(244,247,250,0.6);
+  line-height: 1.75; max-width: 490px; margin-bottom: 44px;
+}
+.hero-actions { display: flex; align-items: center; gap: 20px; }
+
+/* hero content animation */
+.hero-content { animation: fadeUp 0.8s .05s both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ─── DASHBOARD VISUAL ─── */
+.dashboard-visual {
+  position: relative; z-index: 1;
+  animation: fadeUp 1s 0.25s both;
+}
+
+.dash-window {
+  background: rgba(10,18,36,0.95);
+  border: 1px solid rgba(167,192,206,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(7,106,147,0.08);
+}
+
+.dash-topbar {
+  background: rgba(0,18,74,0.6);
+  padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.dash-dots { display: flex; gap: 6px; }
+.dash-dot { width: 10px; height: 10px; border-radius: 50%; }
+.dash-dot.r { background: #ff5f57; }
+.dash-dot.y { background: #febc2e; }
+.dash-dot.g { background: #28c840; }
+.dash-title { font-size: 0.72rem; color: rgba(244,247,250,0.3); letter-spacing: 0.06em; flex: 1; text-align: center; }
+
+.dash-body { padding: 20px; }
+
+/* mini KPIs */
+.dash-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.dash-kpi {
+  background: rgba(7,106,147,0.08); border: 1px solid rgba(7,106,147,0.2);
+  border-radius: 6px; padding: 10px 12px;
+}
+.dash-kpi-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--white); }
+.dash-kpi-label { font-size: 0.62rem; color: var(--steelDim); margin-top: 2px; letter-spacing: 0.04em; }
+.dash-kpi-delta { font-size: 0.62rem; color: #5edd8a; margin-top: 3px; }
+
+/* chart area */
+.dash-chart-row { display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; }
+
+.dash-panel {
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px;
+}
+.dash-panel-title { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--steelDim); margin-bottom: 12px; }
+
+/* bar chart */
+.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
+.bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bar { width: 100%; border-radius: 3px 3px 0 0; background: rgba(7,106,147,0.5); transition: background .3s; position: relative; }
+.bar.highlight { background: var(--blue); }
+.bar-label { font-size: 0.55rem; color: var(--steelDim); }
+
+/* donut */
+.donut-wrap { display: flex; align-items: center; gap: 12px; }
+.donut-legend { flex: 1; }
+.donut-item { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; font-size: 0.62rem; color: rgba(244,247,250,0.55); }
+.donut-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+/* floating metric badge */
+.float-badge {
+  position: absolute;
+  background: rgba(10,18,36,0.95);
+  border: 1px solid rgba(7,106,147,0.35);
+  border-radius: 8px; padding: 12px 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.float-badge.one { top: -24px; right: -20px; }
+.float-badge.two { bottom: 10px; left: -28px; animation-delay: -2s; }
+.float-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; color: var(--white); }
+.float-val span { color: var(--steel); }
+.float-label { font-size: 0.65rem; color: var(--steelDim); margin-top: 2px; white-space: nowrap; }
+
+/* ─── TRUST BAR ─── */
+.trust-bar {
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  display: flex; align-items: center;
+  background: rgba(0,18,74,0.15);
+  overflow: hidden;
+  position: relative;
+}
+.trust-bar::before,
+.trust-bar::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+}
+.trust-bar::before { left: 0; background: linear-gradient(90deg, rgba(8,15,30,1) 0%, transparent 100%); }
+.trust-bar::after  { right: 0; background: linear-gradient(-90deg, rgba(8,15,30,1) 0%, transparent 100%); }
+.trust-label-wrap { padding: 0 24px; flex-shrink: 0; z-index: 3; background: var(--dark); border-right: 1px solid var(--border); margin-right: 0; }
+.trust-label { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244,247,250,0.22); white-space: nowrap; display: block; }
+.trust-track { overflow: hidden; flex: 1; }
+.trust-scroll { display: flex; align-items: center; gap: 0; animation: marquee 28s linear infinite; white-space: nowrap; width: max-content; }
+.trust-item { font-size: 0.8rem; font-weight: 400; color: rgba(244,247,250,0.35); letter-spacing: 0.02em; padding: 0 20px; }
+.trust-item.hi { font-weight: 700; color: #ffffff; letter-spacing: 0.04em; }
+.trust-dot { color: rgba(167,192,206,0.2); font-size: 0.6rem; flex-shrink: 0; }
+
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ─── SECTIONS ─── */
+section { padding: 100px 6vw; position: relative; }
+section.alt { background: rgba(0,18,74,0.18); }
+
+.sec-eyebrow {
+  font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--steel); margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+}
+.sec-eyebrow::after { content: ''; flex: none; display: block; width: 40px; height: 1px; background: var(--border); }
+.sec-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 3.2vw, 2.7rem); letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 14px; }
+.sec-sub { font-size: 1rem; font-weight: 300; color: rgba(244,247,250,0.55); max-width: 540px; line-height: 1.75; margin-bottom: 56px; }
+
+/* ─── PAIN ─── */
+.pain-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 6vw; align-items: center; }
+.pain-visual { position: relative; }
+
+/* audit screen mockup */
+.audit-screen {
+  background: rgba(10,18,36,0.95); border: 1px solid var(--border); border-radius: 10px;
+  padding: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+.audit-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.audit-row:last-child { border-bottom: none; }
+.audit-item-left { display: flex; align-items: center; gap: 10px; }
+.audit-icon { width: 28px; height: 28px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
+.audit-icon.err { background: rgba(226,75,74,0.15); color: #f09595; border: 1px solid rgba(226,75,74,0.25); }
+.audit-icon.warn { background: rgba(239,159,39,0.15); color: #fac775; border: 1px solid rgba(239,159,39,0.25); }
+.audit-icon.ok { background: rgba(99,153,34,0.15); color: #c0dd97; border: 1px solid rgba(99,153,34,0.25); }
+.audit-text { font-size: 0.75rem; color: rgba(244,247,250,0.7); }
+.audit-sub { font-size: 0.65rem; color: rgba(244,247,250,0.35); margin-top: 2px; }
+.audit-badge { font-size: 0.62rem; font-weight: 500; padding: 3px 9px; border-radius: 3px; }
+.audit-badge.err { background: rgba(226,75,74,0.15); color: #f09595; }
+.audit-badge.warn { background: rgba(239,159,39,0.15); color: #fac775; }
+.audit-badge.ok { background: rgba(99,153,34,0.12); color: #c0dd97; }
+
+.pain-items { display: flex; flex-direction: column; gap: 24px; }
+.pain-item { display: flex; gap: 16px; }
+.pain-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.4rem; color: rgba(7,106,147,0.25); line-height: 1; flex-shrink: 0; width: 48px; }
+.pain-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; margin-bottom: 6px; }
+.pain-text { font-size: 0.85rem; font-weight: 300; color: rgba(244,247,250,0.5); line-height: 1.65; }
+
+/* ─── SERVICES ─── */
+.services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.svc-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 32px 28px; position: relative; overflow: hidden; transition: border-color .3s, transform .3s;
+}
+.svc-card:hover { border-color: var(--borderHover); transform: translateY(-4px); }
+.svc-card.featured { border-color: rgba(7,106,147,0.35); background: rgba(7,106,147,0.05); }
+.svc-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--steel));
+  transform: scaleX(0); transform-origin: left; transition: transform .4s;
+}
+.svc-card:hover::after { transform: scaleX(1); }
+.svc-tag { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel); background: rgba(167,192,206,0.08); border: 1px solid rgba(167,192,206,0.18); padding: 4px 10px; border-radius: 2px; display: inline-block; margin-bottom: 14px; }
+.svc-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.18rem; margin-bottom: 10px; letter-spacing: -0.02em; }
+.svc-desc { font-size: 0.85rem; font-weight: 300; color: rgba(244,247,250,0.55); line-height: 1.7; margin-bottom: 18px; }
+.svc-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.svc-list li { font-size: 0.78rem; color: rgba(244,247,250,0.45); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.svc-list li::before { content: '→'; color: var(--steel); flex-shrink: 0; }
+
+/* ─── CASES ─── */
+.cases-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6vw; align-items: start; }
+
+.case-cards { display: flex; flex-direction: column; gap: 16px; }
+.case-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 24px; transition: border-color .3s; cursor: default;
+}
+.case-card:hover { border-color: rgba(167,192,206,0.3); }
+.case-seg { font-size: 0.63rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--steelDim); margin-bottom: 12px; }
+.case-number { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.6rem; letter-spacing: -0.04em; line-height: 1; color: var(--white); }
+.case-number span { color: var(--steel); }
+.case-metric { font-size: 0.82rem; font-weight: 500; color: rgba(244,247,250,0.65); margin: 4px 0 12px; }
+.case-detail { font-size: 0.77rem; font-weight: 300; color: rgba(244,247,250,0.4); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 12px; }
+
+/* looker dashboard mockup */
+.looker-mock {
+  background: rgba(10,18,36,0.96); border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  position: sticky; top: 100px;
+}
+.looker-header {
+  background: rgba(0,18,74,0.7); padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.looker-header-title { font-size: 0.7rem; color: rgba(244,247,250,0.4); letter-spacing: 0.05em; }
+.looker-date { font-size: 0.62rem; color: var(--steelDim); }
+.looker-body { padding: 16px; display: grid; gap: 12px; }
+.looker-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.l-kpi { background: rgba(7,106,147,0.07); border: 1px solid rgba(7,106,147,0.18); border-radius: 6px; padding: 10px; }
+.l-kpi-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; }
+.l-kpi-lbl { font-size: 0.58rem; color: var(--steelDim); margin-top: 2px; letter-spacing: 0.04em; }
+.l-kpi-chg { font-size: 0.6rem; color: #5edd8a; margin-top: 3px; }
+.looker-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.l-chart { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 6px; padding: 12px; }
+.l-chart-title { font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--steelDim); margin-bottom: 10px; }
+
+/* ─── MÉTODO ─── */
+.method-track { display: flex; flex-direction: column; gap: 0; max-width: 720px; margin: 0 auto; }
+.method-step { display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding-bottom: 40px; position: relative; }
+.method-step:last-child { padding-bottom: 0; }
+.step-left { display: flex; flex-direction: column; align-items: center; }
+.step-num-circle {
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(7,106,147,0.1); border: 1px solid rgba(7,106,147,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--steel);
+}
+.step-line { flex: 1; width: 1px; background: var(--border); margin-top: 8px; }
+.method-step:last-child .step-line { display: none; }
+.step-content { padding-top: 10px; }
+.step-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.05rem; margin-bottom: 8px; }
+.step-text { font-size: 0.87rem; font-weight: 300; color: rgba(244,247,250,0.5); line-height: 1.7; }
+
+/* ─── SOBRE ─── */
+.about-layout { display: grid; grid-template-columns: 380px 1fr; gap: 64px; align-items: start; }
+
+.about-photo-card {
+  background: rgba(10,18,36,0.9); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.photo-slot {
+  aspect-ratio: 4/5; background: linear-gradient(160deg, rgba(0,18,74,0.8) 0%, rgba(7,106,147,0.15) 100%);
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.photo-slot svg { opacity: 0.18; }
+.photo-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(8,15,30,0.95));
+  padding: 40px 24px 20px;
+}
+.photo-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.2rem; }
+.photo-role { font-size: 0.78rem; color: var(--steelDim); margin-top: 4px; }
+.photo-note { padding: 12px 20px; border-top: 1px solid var(--border); }
+.photo-note p { font-size: 0.72rem; color: rgba(244,247,250,0.25); text-align: center; font-style: italic; }
+
+.about-content { padding-top: 8px; }
+.about-text { font-size: 1rem; font-weight: 300; color: rgba(244,247,250,0.6); line-height: 1.8; margin-bottom: 32px; }
+.about-stats { display: flex; gap: 40px; margin-bottom: 32px; flex-wrap: wrap; }
+.astat-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.8rem; letter-spacing: -0.03em; }
+.astat-lbl { font-size: 0.75rem; color: rgba(244,247,250,0.4); line-height: 1.4; margin-top: 2px; }
+.about-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.stack-pill { font-size: 0.72rem; padding: 6px 14px; border-radius: 3px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: rgba(244,247,250,0.5); letter-spacing: 0.02em; }
+.about-contact { display: flex; flex-direction: column; gap: 8px; }
+.contact-line { font-size: 0.85rem; color: rgba(244,247,250,0.5); display: flex; align-items: center; gap: 8px; }
+.contact-line a { color: var(--steel); text-decoration: none; }
+.contact-line a:hover { color: var(--white); }
+
+/* ─── CTA ─── */
+.cta-section {
+  background: linear-gradient(135deg, rgba(0,18,74,0.5) 0%, rgba(7,106,147,0.15) 100%);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 100px 6vw; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 900px; height: 500px;
+  background: radial-gradient(ellipse, rgba(7,106,147,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+.cta-text h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.9rem, 3.5vw, 2.8rem); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+.cta-text p { font-size: 1rem; font-weight: 300; color: rgba(244,247,250,0.55); line-height: 1.75; margin-bottom: 28px; }
+.cta-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.cta-features li { font-size: 0.85rem; color: rgba(244,247,250,0.6); display: flex; align-items: center; gap: 10px; }
+.cta-features li::before { content: '✓'; width: 18px; height: 18px; border-radius: 50%; background: rgba(7,106,147,0.2); border: 1px solid rgba(7,106,147,0.4); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--steel); flex-shrink: 0; text-indent: 3px; }
+
+/* form */
+.form-box {
+  background: rgba(10,18,36,0.85); border: 1px solid var(--border); border-radius: 12px;
+  padding: 40px 36px; backdrop-filter: blur(20px);
+}
+.form-box-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; margin-bottom: 6px; }
+.form-box-sub { font-size: 0.82rem; color: rgba(244,247,250,0.4); margin-bottom: 28px; line-height: 1.5; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
+.fg.full { grid-column: 1 / -1; }
+.flabel { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(244,247,250,0.35); }
+.finput, .fselect {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 4px;
+  padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+  color: var(--white); outline: none; transition: border-color .2s; -webkit-appearance: none;
+}
+.finput::placeholder { color: rgba(244,247,250,0.2); }
+.finput:focus, .fselect:focus { border-color: var(--blue); background: rgba(7,106,147,0.06); }
+.fselect option { background: #080f1e; color: var(--white); }
+.fsubmit {
+  grid-column: 1 / -1; background: var(--blue); color: var(--white);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em;
+  padding: 15px; border: none; border-radius: 4px; cursor: pointer;
+  transition: all .2s; margin-top: 4px;
+  box-shadow: 0 4px 24px rgba(7,106,147,0.4);
+}
+.fsubmit:hover { background: var(--mid); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(7,106,147,0.5); }
+.fdisclaim { font-size: 0.7rem; color: rgba(244,247,250,0.2); text-align: center; margin-top: 14px; line-height: 1.5; grid-column: 1 / -1; }
+
+.form-success { display: none; text-align: center; padding: 40px 20px; }
+.form-success.on { display: block; }
+.suc-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(7,106,147,0.15); border: 1px solid rgba(7,106,147,0.4); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin: 0 auto 18px; }
+.suc-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; margin-bottom: 10px; }
+.suc-text { font-size: 0.88rem; color: rgba(244,247,250,0.5); line-height: 1.6; margin-bottom: 24px; }
+.suc-wa { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3); color: #5edd8a; font-size: 0.85rem; font-weight: 500; padding: 12px 24px; border-radius: 4px; text-decoration: none; transition: background .2s; }
+.suc-wa:hover { background: rgba(37,211,102,0.18); }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 36px 6vw; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+}
+.foot-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; }
+.foot-logo span { color: var(--steel); }
+.foot-links { display: flex; gap: 24px; }
+.foot-links a { font-size: 0.78rem; color: rgba(244,247,250,0.3); text-decoration: none; transition: color .2s; }
+.foot-links a:hover { color: var(--steel); }
+.foot-copy { font-size: 0.72rem; color: rgba(244,247,250,0.18); }
+
+/* ─── ANIMATIONS & REVEAL ─── */
+[data-r] { opacity: 0; transform: translateY(20px); transition: opacity .7s, transform .7s; }
+[data-r].on { opacity: 1; transform: translateY(0); }
+[data-r2] { opacity: 0; transform: translateY(20px); transition: opacity .7s .15s, transform .7s .15s; }
+[data-r2].on { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; padding-bottom: 60px; }
+  .dashboard-visual { display: none; }
+  .pain-layout { grid-template-columns: 1fr; }
+  .audit-screen { margin-bottom: 40px; }
+  .cases-layout { grid-template-columns: 1fr; }
+  .looker-mock { position: static; }
+  .about-layout { grid-template-columns: 1fr; }
+  .about-photo-card { max-width: 400px; }
+  .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WXS3LW8W"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- HEADER -->
+<header>
+  <div class="logo">DW<span>Conecta</span></div>
+  <nav class="nav-links">
+    <a href="#problema">O problema</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#cases">Resultados</a>
+    <a href="#sobre">Sobre</a>
+  </nav>
+  <a href="#diagnostico" class="btn-primary">Diagnóstico Gratuito →</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Estratégia de Performance e Inteligência de Dados · Salvador, BA</div>
+    <h1>Você investe em<br>tráfego. Mas o dado<br>conta <em>outra história.</em></h1>
+    <p class="hero-sub">Auditamos sua operação de marketing, corrigimos o tracking e construímos a estratégia de performance com base em dados reais — não em achismo.</p>
+    <div class="hero-actions">
+      <a href="#diagnostico" class="btn-primary lg">Solicitar diagnóstico gratuito →</a>
+      <a href="#cases" class="btn-ghost">Ver resultados reais ↓</a>
+    </div>
+  </div>
+
+  <!-- DASHBOARD MOCKUP -->
+  <div class="dashboard-visual">
+    <div style="position:relative;">
+      <!-- Floating badges -->
+      <div class="float-badge one">
+        <div class="float-val">85<span>×</span></div>
+        <div class="float-label">ROAS Google Search</div>
+      </div>
+      <div class="float-badge two">
+        <div class="float-val">167</div>
+        <div class="float-label">oportunidades identificadas</div>
+      </div>
+
+      <div class="dash-window">
+        <div class="dash-topbar">
+          <div class="dash-dots">
+            <div class="dash-dot r"></div>
+            <div class="dash-dot y"></div>
+            <div class="dash-dot g"></div>
+          </div>
+          <div class="dash-title">DW Conecta · Performance Dashboard · Looker Studio</div>
+        </div>
+        <div class="dash-body">
+          <!-- KPIs -->
+          <div class="dash-kpis">
+            <div class="dash-kpi">
+              <div class="dash-kpi-val">R$32,1k</div>
+              <div class="dash-kpi-label">INVESTIMENTO</div>
+              <div class="dash-kpi-delta">↑ 12% vs mês ant.</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-val">18,5×</div>
+              <div class="dash-kpi-label">ROAS TOTAL</div>
+              <div class="dash-kpi-delta">↑ 3,2× vs meta</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-val">R$1,73</div>
+              <div class="dash-kpi-label">CPC MÉDIO</div>
+              <div class="dash-kpi-delta">↓ 38% vs ant.</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-val">4,2%</div>
+              <div class="dash-kpi-label">TAXA CONV.</div>
+              <div class="dash-kpi-delta">↑ 1,1pp vs ant.</div>
+            </div>
+          </div>
+
+          <!-- Charts row -->
+          <div class="dash-chart-row">
+            <!-- Bar chart: ROAS por canal -->
+            <div class="dash-panel">
+              <div class="dash-panel-title">ROAS por canal</div>
+              <div class="bar-chart">
+                <div class="bar-item">
+                  <div class="bar highlight" style="height:80px;"></div>
+                  <div class="bar-label">G.Search</div>
+                </div>
+                <div class="bar-item">
+                  <div class="bar" style="height:38px; background:rgba(7,106,147,0.35);"></div>
+                  <div class="bar-label">G.Display</div>
+                </div>
+                <div class="bar-item">
+                  <div class="bar" style="height:55px;"></div>
+                  <div class="bar-label">Meta BR</div>
+                </div>
+                <div class="bar-item">
+                  <div class="bar" style="height:42px; background:rgba(7,106,147,0.35);"></div>
+                  <div class="bar-label">Meta PT</div>
+                </div>
+                <div class="bar-item">
+                  <div class="bar" style="height:28px; background:rgba(7,106,147,0.25);"></div>
+                  <div class="bar-label">TikTok</div>
+                </div>
+                <div class="bar-item">
+                  <div class="bar" style="height:20px; background:rgba(7,106,147,0.2);"></div>
+                  <div class="bar-label">Pinterest</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Donut: distribuição de verba -->
+            <div class="dash-panel">
+              <div class="dash-panel-title">Distribuição de verba</div>
+              <div class="donut-wrap">
+                <svg width="68" height="68" viewBox="0 0 68 68">
+                  <!-- Donut rings using stroke-dasharray -->
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="rgba(7,106,147,0.12)" stroke-width="10"/>
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#076a93" stroke-width="10" stroke-dasharray="65 98" stroke-dashoffset="24" stroke-linecap="round"/>
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#a7c0ce" stroke-width="10" stroke-dasharray="38 98" stroke-dashoffset="-41" stroke-linecap="round"/>
+                  <circle cx="34" cy="34" r="26" fill="none" stroke="#2e6b91" stroke-width="10" stroke-dasharray="20 98" stroke-dashoffset="-79" stroke-linecap="round"/>
+                </svg>
+                <div class="donut-legend">
+                  <div class="donut-item"><div class="donut-dot" style="background:#076a93;"></div>Google Ads — 40%</div>
+                  <div class="donut-item"><div class="donut-dot" style="background:#a7c0ce;"></div>Meta Ads — 35%</div>
+                  <div class="donut-item"><div class="donut-dot" style="background:#2e6b91;"></div>TikTok — 14%</div>
+                  <div class="donut-item"><div class="donut-dot" style="background:rgba(167,192,206,0.3);"></div>Outros — 11%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-label-wrap">
+    <span class="trust-label">Clientes<br>atendidos</span>
+  </div>
+  <div class="trust-track">
+    <div class="trust-scroll">
+      <span class="trust-item hi">Avatim</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item hi">Rabelo Negócios</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item hi">Digi Conecta</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">Multimarcas Consórcio · Silva Assunção</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">Faculdade Inspira · Salvador</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">SA Casa do Sushi · Salvador</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">Biomotriz</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">Comunidade MAM</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item hi">Avatim</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item hi">Rabelo Negócios</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item hi">Digi Conecta</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">Multimarcas Consórcio · Silva Assunção</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">Faculdade Inspira · Salvador</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">SA Casa do Sushi · Salvador</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">Biomotriz</span>
+      <span class="trust-dot">◆</span>
+      <span class="trust-item">Comunidade MAM</span>
+      <span class="trust-dot">◆</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section id="problema" data-r>
+  <div class="pain-layout">
+    <div class="pain-items">
+      <div class="sec-eyebrow">Por que isso importa</div>
+      <h2 class="sec-title">Você está pagando por<br>campanhas com dados errados.</h2>
+      <p class="sec-sub" style="margin-bottom: 40px;">A maioria das operações de marketing tem tracking quebrado, atribuição incorreta e decisões baseadas em números que não refletem a realidade.</p>
+
+      <div class="pain-item">
+        <div class="pain-num">01</div>
+        <div>
+          <div class="pain-title">Tracking quebrado, decisão no escuro</div>
+          <div class="pain-text">Eventos duplicados no GA4, conversões mal configuradas no Google Ads e pixel sem API de Conversões — você otimiza campanhas com dados que mentem.</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">02</div>
+        <div>
+          <div class="pain-title">Verba gasta sem retorno mensurável</div>
+          <div class="pain-text">Sem atribuição confiável, é impossível saber qual canal gera receita real. A agência reporta cliques e impressões — não resultado.</div>
+        </div>
+      </div>
+      <div class="pain-item">
+        <div class="pain-num">03</div>
+        <div>
+          <div class="pain-title">167 oportunidades invisíveis</div>
+          <div class="pain-text">Em um único diagnóstico inicial, identificamos 167 oportunidades perdidas em rastreamento, atribuição e conversão — enquanto o cliente continuava investindo.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUDIT SCREEN MOCKUP -->
+    <div data-r2>
+      <div class="audit-screen">
+        <div style="font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--steelDim); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border);">Relatório de Auditoria de Tracking · DW Conecta</div>
+
+        <div class="audit-row">
+          <div class="audit-item-left">
+            <div class="audit-icon err">✕</div>
+            <div>
+              <div class="audit-text">Evento purchase duplicado no GA4</div>
+              <div class="audit-sub">GTM + snippet nativo simultâneos</div>
+            </div>
+          </div>
+          <div class="audit-badge err">Crítico</div>
+        </div>
+
+        <div class="audit-row">
+          <div class="audit-item-left">
+            <div class="audit-icon err">✕</div>
+            <div>
+              <div class="audit-text">TikTok Pixel não instalado</div>
+              <div class="audit-sub">Zero rastreamento de conversão</div>
+            </div>
+          </div>
+          <div class="audit-badge err">Crítico</div>
+        </div>
+
+        <div class="audit-row">
+          <div class="audit-item-left">
+            <div class="audit-icon err">✕</div>
+            <div>
+              <div class="audit-text">Google Ads com conversão incorreta</div>
+              <div class="audit-sub">Configuração apontando para domínio BR</div>
+            </div>
+          </div>
+          <div class="audit-badge err">Crítico</div>
+        </div>
+
+        <div class="audit-row">
+          <div class="audit-item-left">
+            <div class="audit-icon warn">!</div>
+            <div>
+              <div class="audit-text">API de Conversões ausente no Meta</div>
+              <div class="audit-sub">Dependência total de pixel browser</div>
+            </div>
+          </div>
+          <div class="audit-badge warn">Atenção</div>
+        </div>
+
+        <div class="audit-row">
+          <div class="audit-item-left">
+            <div class="audit-icon warn">!</div>
+            <div>
+              <div class="audit-text">Consent Mode v2 não implementado</div>
+              <div class="audit-sub">LGPD + impacto em modelagem</div>
+            </div>
+          </div>
+          <div class="audit-badge warn">Atenção</div>
+        </div>
+
+        <div class="audit-row">
+          <div class="audit-item-left">
+            <div class="audit-icon ok">✓</div>
+            <div>
+              <div class="audit-text">Instalação e configuração de GA4</div>
+              <div class="audit-sub">Via GTM com eventos customizados</div>
+              <div class="audit-sub">Configuração base correta</div>
+            </div>
+          </div>
+          <div class="audit-badge ok">OK</div>
+        </div>
+
+        <div style="margin-top:16px; padding:12px; background:rgba(226,75,74,0.07); border:1px solid rgba(226,75,74,0.2); border-radius:6px;">
+          <div style="font-size:0.7rem; color:rgba(244,247,250,0.7); line-height:1.6;"><span style="color:#f09595; font-weight:500;">3 falhas críticas</span> + 2 alertas identificados. Estimativa de perda de dados de conversão: <span style="color:#fac775;">~43%</span> das transações não rastreadas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="alt" data-r>
+  <div class="sec-eyebrow">O que fazemos</div>
+  <h2 class="sec-title">Gestão de Tráfego com<br>Estratégia e Dados.</h2>
+  <p class="sec-sub">Cada serviço é construído sobre uma base de dados confiável. Sem tracking correto, não existe otimização real.</p>
+
+  <div class="services-grid">
+    <div class="svc-card featured">
+      <div class="svc-tag">Base obrigatória</div>
+      <div class="svc-name">Arquitetura de Dados e Inteligência</div>
+      <div class="svc-desc">Estruturamos o tracking antes de escalar qualquer campanha. Dado confiável é o pré-requisito de tudo.</div>
+      <ul class="svc-list">
+        <li>Estruturação de GA4 e GTM com eventos customizados</li>
+        <li>Modelagem de funil e eventos de conversão</li>
+        <li>API de Conversões (Meta, TikTok, Google, Microsoft)</li>
+        <li>Integração com CRM, plataformas de ads e analytics</li>
+        <li>Dashboards executivos no Looker Studio</li>
+        <li>Análise comportamental com Microsoft Clarity</li>
+        <li>Auditoria de tracking com plano de correção</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-tag">Performance</div>
+      <div class="svc-name">Gestão de Tráfego Pago</div>
+      <div class="svc-desc">Meta Ads, Google Ads, Microsoft Ads, TikTok Ads e Pinterest Ads gerenciados com base em dados reais — incluindo Shopping e Catálogo de produtos.</div>
+      <ul class="svc-list">
+        <li>Estratégia por canal com alocação inteligente de verba</li>
+        <li>Criação e otimização contínua de campanhas</li>
+        <li>Google Shopping e Bing Shopping — feed, listas e campanhas PMax</li>
+        <li>Meta Catálogo — Dynamic Ads e campanhas de produto</li>
+        <li>Relatórios mensais com ROAS por canal</li>
+        <li>Testes A/B de criativos e audiências</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-tag">Crescimento</div>
+      <div class="svc-name">Estratégia de Performance</div>
+      <div class="svc-desc">Visão integrada de todo o funil — identificamos onde você vaza antes de aumentar o investimento.</div>
+      <ul class="svc-list">
+        <li>Auditoria completa da operação de marketing</li>
+        <li>Mapeamento de gargalos de conversão</li>
+        <li>Plano de escala baseado em dados históricos</li>
+        <li>Recomendações de CRO e UX para landing pages</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-tag">Infraestrutura</div>
+      <div class="svc-name">Sites e Landing Pages</div>
+      <div class="svc-desc">Páginas para converter — com tracking instalado desde o primeiro dia e integradas ao seu funil.</div>
+      <ul class="svc-list">
+        <li>Desenvolvimento prioritariamente em Wix</li>
+        <li>GTM, GA4 e pixels configurados na entrega</li>
+        <li>Formulários integrados ao CRM</li>
+        <li>LGPD e Consent Mode v2</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" data-r>
+  <div class="cases-layout">
+    <div>
+      <div class="sec-eyebrow">Resultados reais</div>
+      <h2 class="sec-title">Dados que provam.<br>Não promessas.</h2>
+      <p class="sec-sub" style="margin-bottom:40px;">Cada número vem de operações reais gerenciadas pela DW Conecta — sem estimativas.</p>
+
+      <div class="case-cards">
+        <div class="case-card">
+          <div class="case-seg">E-commerce · Perfumaria Premium</div>
+          <div class="case-number">85<span>×</span></div>
+          <div class="case-metric">ROAS no Google Search</div>
+          <div class="case-detail">Reestruturação completa com API de Conversões e modelagem de funil por categoria de produto.</div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-seg">Franquia · Alimentação · Salvador BA</div>
+          <div class="case-number">2,6<span>×</span></div>
+          <div class="case-metric">CPM mais eficiente que a franqueadora</div>
+          <div class="case-detail">Com 14% da verba recomendada, entregamos CPC 3× mais barato e CPM 2,6× mais eficiente que o gestor oficial da rede.</div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-seg">Diagnóstico Inicial · Tecnologia B2B</div>
+          <div class="case-number">167</div>
+          <div class="case-metric">Oportunidades identificadas no diagnóstico</div>
+          <div class="case-detail">Em uma única análise, mapeamos 167 oportunidades perdidas em rastreamento, atribuição e conversão.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOOKER MOCKUP -->
+    <div data-r2>
+      <div class="looker-mock">
+        <div class="looker-header">
+          <div class="looker-header-title">📊 Performance Report · Looker Studio</div>
+          <div class="looker-date">Mar 2026 · Todos os canais</div>
+        </div>
+        <div class="looker-body">
+          <!-- KPIs -->
+          <div class="looker-kpis">
+            <div class="l-kpi">
+              <div class="l-kpi-val">R$32,1k</div>
+              <div class="l-kpi-lbl">INVEST. TOTAL</div>
+              <div class="l-kpi-chg">↑ 12%</div>
+            </div>
+            <div class="l-kpi">
+              <div class="l-kpi-val">18,51×</div>
+              <div class="l-kpi-lbl">ROAS GERAL</div>
+              <div class="l-kpi-chg">↑ 3,2×</div>
+            </div>
+            <div class="l-kpi">
+              <div class="l-kpi-val">R$594k</div>
+              <div class="l-kpi-lbl">RECEITA</div>
+              <div class="l-kpi-chg">↑ 28%</div>
+            </div>
+          </div>
+
+          <!-- Mini charts -->
+          <div class="looker-charts">
+            <div class="l-chart">
+              <div class="l-chart-title">Receita diária (Mar)</div>
+              <svg viewBox="0 0 160 60" width="100%" style="overflow:visible;">
+                <polyline points="0,48 14,42 28,38 42,44 56,30 70,18 84,22 98,16 112,20 126,12 140,8 154,14" fill="none" stroke="#076a93" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="0,48 14,42 28,38 42,44 56,30 70,18 84,22 98,16 112,20 126,12 140,8 154,14" fill="url(#recGrad)" stroke="none" opacity="0.15"/>
+                <defs>
+                  <linearGradient id="recGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#076a93" stop-opacity="0.4"/>
+                    <stop offset="100%" stop-color="#076a93" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <line x1="0" y1="56" x2="160" y2="56" stroke="rgba(167,192,206,0.15)" stroke-width="0.5"/>
+              </svg>
+            </div>
+
+            <div class="l-chart">
+              <div class="l-chart-title">ROAS por canal</div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.58rem; color:var(--steelDim); margin-bottom:3px;"><span>G. Search</span><span style="color:var(--white);">85×</span></div>
+                  <div style="height:4px; background:rgba(167,192,206,0.1); border-radius:2px;"><div style="height:100%; width:100%; background:#076a93; border-radius:2px;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.58rem; color:var(--steelDim); margin-bottom:3px;"><span>Meta BR</span><span style="color:var(--white);">12×</span></div>
+                  <div style="height:4px; background:rgba(167,192,206,0.1); border-radius:2px;"><div style="height:100%; width:14%; background:#2e6b91; border-radius:2px;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.58rem; color:var(--steelDim); margin-bottom:3px;"><span>G. Display</span><span style="color:var(--white);">8×</span></div>
+                  <div style="height:4px; background:rgba(167,192,206,0.1); border-radius:2px;"><div style="height:100%; width:9%; background:#a7c0ce; border-radius:2px;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:0.58rem; color:var(--steelDim); margin-bottom:3px;"><span>TikTok</span><span style="color:var(--white);">4×</span></div>
+                  <div style="height:4px; background:rgba(167,192,206,0.1); border-radius:2px;"><div style="height:100%; width:5%; background:rgba(167,192,206,0.4); border-radius:2px;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attribution table -->
+          <div class="l-chart" style="margin-top: 0;">
+            <div class="l-chart-title">Atribuição de conversões por plataforma</div>
+            <table style="width:100%; border-collapse:collapse; font-size:0.6rem;">
+              <thead>
+                <tr style="color:var(--steelDim);">
+                  <th style="text-align:left; padding:4px 0; font-weight:400;">Canal</th>
+                  <th style="text-align:right; padding:4px 0; font-weight:400;">Invest.</th>
+                  <th style="text-align:right; padding:4px 0; font-weight:400;">Receita</th>
+                  <th style="text-align:right; padding:4px 0; font-weight:400;">ROAS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="color:rgba(244,247,250,0.6);">
+                  <td style="padding:5px 0; border-top:1px solid var(--border);">Google Search BR</td>
+                  <td style="text-align:right; border-top:1px solid var(--border);">R$8,4k</td>
+                  <td style="text-align:right; border-top:1px solid var(--border);">R$714k</td>
+                  <td style="text-align:right; border-top:1px solid var(--border); color:#5edd8a; font-weight:500;">85×</td>
+                </tr>
+                <tr style="color:rgba(244,247,250,0.6);">
+                  <td style="padding:5px 0; border-top:1px solid var(--border);">Meta Ads BR</td>
+                  <td style="text-align:right; border-top:1px solid var(--border);">R$12,2k</td>
+                  <td style="text-align:right; border-top:1px solid var(--border);">R$146k</td>
+                  <td style="text-align:right; border-top:1px solid var(--border); color:#a7c0ce;">12×</td>
+                </tr>
+                <tr style="color:rgba(244,247,250,0.6);">
+                  <td style="padding:5px 0; border-top:1px solid var(--border);">TikTok Ads</td>
+                  <td style="text-align:right; border-top:1px solid var(--border);">R$4,5k</td>
+                  <td style="text-align:right; border-top:1px solid var(--border);">R$18k</td>
+                  <td style="text-align:right; border-top:1px solid var(--border); color:rgba(244,247,250,0.4);">4×</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section class="alt" data-r>
+  <div class="sec-eyebrow">Como trabalhamos</div>
+  <h2 class="sec-title">Método. Não improviso.</h2>
+  <p class="sec-sub">Cada novo cliente começa com um diagnóstico gratuito antes de qualquer proposta.</p>
+
+  <div class="method-track">
+    <div class="method-step">
+      <div class="step-left">
+        <div class="step-num-circle">01</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Diagnóstico da operação</div>
+        <div class="step-text">Auditamos tracking, atribuição e dados existentes. Mapeamos falhas e oportunidades com um relatório detalhado — antes de qualquer recomendação ou proposta.</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-left">
+        <div class="step-num-circle">02</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Arquitetura de dados</div>
+        <div class="step-text">Estruturamos GA4, GTM e API de Conversões para garantir rastreamento confiável. Isso não é opcional — é o alicerce de qualquer estratégia que funcione.</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-left">
+        <div class="step-num-circle">03</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Estratégia e ativação</div>
+        <div class="step-text">Com dados confiáveis, ativamos a estratégia de performance por canal. Cada decisão tem base em evidência — não em intuição ou benchmark genérico.</div>
+      </div>
+    </div>
+    <div class="method-step">
+      <div class="step-left">
+        <div class="step-num-circle">04</div>
+      </div>
+      <div class="step-content">
+        <div class="step-title">Monitoramento e escala</div>
+        <div class="step-text">Dashboards no Looker Studio, relatórios mensais e reuniões estratégicas. Você sempre sabe o que está acontecendo e por quê.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre" data-r>
+  <div class="about-layout">
+    <div class="about-photo-card">
+      <div class="photo-slot">
+        <!-- placeholder elegant com grid de dados -->
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <rect x="10" y="10" width="180" height="180" rx="4" fill="none" stroke="rgba(167,192,206,0.15)" stroke-width="0.5"/>
+          <line x1="10" y1="55" x2="190" y2="55" stroke="rgba(7,106,147,0.15)" stroke-width="0.5"/>
+          <line x1="10" y1="100" x2="190" y2="100" stroke="rgba(7,106,147,0.15)" stroke-width="0.5"/>
+          <line x1="10" y1="145" x2="190" y2="145" stroke="rgba(7,106,147,0.15)" stroke-width="0.5"/>
+          <line x1="55" y1="10" x2="55" y2="190" stroke="rgba(7,106,147,0.15)" stroke-width="0.5"/>
+          <line x1="100" y1="10" x2="100" y2="190" stroke="rgba(7,106,147,0.15)" stroke-width="0.5"/>
+          <line x1="145" y1="10" x2="145" y2="190" stroke="rgba(7,106,147,0.15)" stroke-width="0.5"/>
+          <circle cx="100" cy="100" r="32" fill="rgba(7,106,147,0.08)" stroke="rgba(7,106,147,0.2)" stroke-width="0.5"/>
+          <circle cx="100" cy="100" r="18" fill="rgba(7,106,147,0.12)" stroke="rgba(7,106,147,0.3)" stroke-width="0.5"/>
+          <text x="100" y="105" text-anchor="middle" fill="rgba(167,192,206,0.4)" font-size="11" font-family="'DM Sans', sans-serif">Foto aqui</text>
+        </svg>
+        <div class="photo-overlay">
+          <div class="photo-name">Rosangela Garcia</div>
+          <div class="photo-role">Estrategista de Performance · DW Conecta</div>
+        </div>
+      </div>
+      <div class="photo-note">
+        <p>Substitua pelo seu foto profissional</p>
+      </div>
+    </div>
+
+    <div class="about-content">
+      <div class="sec-eyebrow">Fundadora · DW Conecta</div>
+      <p class="about-text" style="margin-bottom:20px;">Trabalho na intersecção entre dados e performance — onde o tracking confiável encontra a estratégia de mídia paga para gerar resultado mensurável. Não trabalho com gestão de campanhas desconectada de dados.</p>
+      <p class="about-text">Cada estratégia começa com visibilidade real da operação. Se você não sabe o que seus dados dizem, você não está gerenciando campanhas — está apostando.</p>
+
+      <div class="about-stats">
+        <div>
+          <div class="astat-val">6+</div>
+          <div class="astat-lbl">plataformas de mídia<br>gerenciadas</div>
+        </div>
+        <div>
+          <div class="astat-val">SSA</div>
+          <div class="astat-lbl">baseada em<br>Salvador, BA</div>
+        </div>
+        <div>
+          <div class="astat-val">GA4</div>
+          <div class="astat-lbl">GTM · Looker Studio<br>API de Conversões</div>
+        </div>
+      </div>
+
+      <div class="about-stack">
+        <span class="stack-pill">Meta Ads</span>
+        <span class="stack-pill">Meta Catálogo</span>
+        <span class="stack-pill">Google Ads</span>
+        <span class="stack-pill">Google Shopping</span>
+        <span class="stack-pill">Microsoft Ads</span>
+        <span class="stack-pill">Bing Shopping</span>
+        <span class="stack-pill">TikTok Ads</span>
+        <span class="stack-pill">Pinterest Ads</span>
+        <span class="stack-pill">GA4</span>
+        <span class="stack-pill">GTM</span>
+        <span class="stack-pill">Microsoft Clarity</span>
+        <span class="stack-pill">Looker Studio</span>
+        <span class="stack-pill">API de Conversões</span>
+        <span class="stack-pill">Semrush</span>
+        <span class="stack-pill">Wix</span>
+      </div>
+
+      <div class="about-contact">
+        <div class="contact-line">📧 <a href="mailto:contato@dwconecta.marketing">contato@dwconecta.marketing</a></div>
+        <div class="contact-line">📱 <a href="https://wa.me/5571996800225">(71) 9 9680-0225</a></div>
+        <div class="contact-line">🌐 <a href="https://dwconecta.marketing" target="_blank">dwconecta.marketing</a></div>
+        <div class="contact-line">📸 <a href="https://instagram.com/rosagarcia.estrategista" target="_blank">@rosagarcia.estrategista</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / FORM -->
+<section class="cta-section" id="diagnostico">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <div class="sec-eyebrow" style="margin-bottom:14px;">Diagnóstico gratuito</div>
+      <h2>Quanto você está perdendo por falta de visibilidade?</h2>
+      <p>Analisamos sua operação e entregamos um relatório com os principais pontos de atenção. Sem compromisso. Em até 48h.</p>
+      <ul class="cta-features">
+        <li>Auditoria de tracking e atribuição</li>
+        <li>Mapeamento de falhas de conversão</li>
+        <li>Análise de performance por canal</li>
+        <li>Plano de ação prioritizado</li>
+        <li>100% gratuito, sem compromisso</li>
+      </ul>
+    </div>
+
+    <div class="form-box">
+      <div class="form-box-title">Solicitar diagnóstico</div>
+      <div class="form-box-sub">Preencha abaixo. Rosangela entrará em contato em até 1 dia útil.</div>
+
+      <div id="formWrap">
+        <div class="form-grid">
+          <div class="fg">
+            <label class="flabel">Nome</label>
+            <input type="text" id="fn" class="finput" placeholder="Seu nome">
+          </div>
+          <div class="fg">
+            <label class="flabel">WhatsApp</label>
+            <input type="tel" id="ft" class="finput" placeholder="(71) 9 0000-0000">
+          </div>
+          <div class="fg full">
+            <label class="flabel">E-mail</label>
+            <input type="email" id="fe" class="finput" placeholder="seu@email.com">
+          </div>
+          <div class="fg full">
+            <label class="flabel">Empresa / Segmento</label>
+            <input type="text" id="fco" class="finput" placeholder="Nome da empresa ou segmento">
+          </div>
+          <div class="fg full">
+            <label class="flabel">Verba mensal em tráfego pago</label>
+            <select id="fv" class="fselect">
+              <option value="" disabled selected>Selecione uma faixa</option>
+              <option>Até R$ 3.000/mês</option>
+              <option>R$ 3.000 a R$ 10.000/mês</option>
+              <option>R$ 10.000 a R$ 30.000/mês</option>
+              <option>Acima de R$ 30.000/mês</option>
+              <option>Ainda não invisto em tráfego</option>
+            </select>
+          </div>
+          <div class="fg full">
+            <label class="flabel">Principal desafio hoje</label>
+            <select id="fd" class="fselect">
+              <option value="" disabled selected>Selecione</option>
+              <option>Não sei se meus dados de campanha são confiáveis</option>
+              <option>Invisto em tráfego mas não vejo retorno claro</option>
+              <option>Quero escalar mas não sei por onde começar</option>
+              <option>Meu tracking está quebrado ou incompleto</option>
+              <option>Preciso de relatórios mais estratégicos</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <button class="fsubmit" onclick="submitForm()">Solicitar diagnóstico gratuito →</button>
+          <p class="fdisclaim">Seus dados não serão compartilhados. Contato direto com Rosangela Garcia via WhatsApp ou e-mail.</p>
+        </div>
+      </div>
+
+      <div class="form-success" id="formOk">
+        <div class="suc-icon">✓</div>
+        <div class="suc-title">Solicitação recebida!</div>
+        <p class="suc-text">Rosangela entrará em contato em até 1 dia útil para agendar a análise. Fique de olho no WhatsApp e e-mail.</p>
+        <a class="suc-wa" href="https://wa.me/5571996800225?text=Ol%C3%A1%2C%20acabei%20de%20solicitar%20o%20diagn%C3%B3stico%20gratuito%20pelo%20site" target="_blank">
+          💬 Falar agora pelo WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">DW<span>Conecta</span></div>
+  <div class="foot-links">
+    <a href="https://dwconecta.marketing" target="_blank">dwconecta.marketing</a>
+    <a href="mailto:contato@dwconecta.marketing">contato@dwconecta.marketing</a>
+    <a href="https://instagram.com/rosagarcia.estrategista" target="_blank">@rosagarcia.estrategista</a>
+    <a href="https://wa.me/5571996800225" target="_blank">(71) 9 9680-0225</a>
+  </div>
+  <div class="foot-copy">© 2026 DW Conecta · Salvador, BA</div>
+</footer>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('[data-r], [data-r2]').forEach(el => io.observe(el));
+
+// Phone mask
+const tel = document.getElementById('ft');
+if (tel) tel.addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'');
+  v = v.replace(/^(\d{2})(\d)/,'($1) $2');
+  v = v.replace(/(\d)(\d{4})$/,'$1-$2');
+  this.value = v;
+});
+
+// Form submit
+function submitForm() {
+  const nome = document.getElementById('fn').value.trim();
+  const tel = document.getElementById('ft').value.trim();
+  const email = document.getElementById('fe').value.trim();
+  const empresa = document.getElementById('fco').value.trim();
+  const verba = document.getElementById('fv').value;
+  const desafio = document.getElementById('fd').value;
+
+  if (!nome || !email) {
+    alert('Preencha nome e e-mail para continuar.');
+    return;
+  }
+
+  const msg = encodeURIComponent(
+    `Olá Rosangela! Solicitei o diagnóstico gratuito pelo site.\n\n` +
+    `Nome: ${nome}\nWhatsApp: ${tel}\nEmpresa: ${empresa || 'Não informado'}\n` +
+    `Verba: ${verba || 'Não informado'}\nDesafio: ${desafio || 'Não informado'}\nE-mail: ${email}`
+  );
+
+
+  // GTM dataLayer — evento de geração de lead
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    'event': 'generate_lead',
+    'lead_nome': nome,
+    'lead_email': email,
+    'lead_empresa': empresa || '',
+    'lead_verba': verba || '',
+    'lead_desafio': desafio || ''
+  });
+
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('formOk').classList.add('on');
+
+  setTimeout(() => {
+    window.open(`https://wa.me/5571996800225?text=${msg}`, '_blank');
+  }, 900);
+}
+</script>
+
+</body>
+</html>
